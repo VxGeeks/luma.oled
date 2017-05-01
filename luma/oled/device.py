@@ -51,12 +51,10 @@ class sh1106(device):
         self.capabilities(width, height, rotate)
         self._pages = self._h // 8
 
-        # FIXME: Delay doing anything here with alternate screen sizes
-        # until we are able to get a device to test with.
         settings = {
-            (64): dict(multiplex=0x3F, displayoffset=0x00),
-            (32): dict(multiplex=0x20, displayoffset=0x0F)
-        }.get(height)
+            (128,64): dict(multiplex=0x3F, displayoffset=0x00),
+            (128,32): dict(multiplex=0x20, displayoffset=0x0F)
+        }.get(width,height)
 
         self.command(
             self._const.DISPLAYOFF,
